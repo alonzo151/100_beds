@@ -15,11 +15,11 @@ def load_room_data():
             return json.load(file)
     else:
         return {
-            'Room 1': {'beds': 4, 'occupants': []},
-            'Room 2': {'beds': 4, 'occupants': []},
-            'Room 3': {'beds': 4, 'occupants': []},
-            'Room 4': {'beds': 4, 'occupants': []},
-            'Room 5': {'beds': 6, 'occupants': []},
+            'Barracks 1 (Boys)': {'beds': 4, 'occupants': []},
+            'Barracks 2 (Boys)': {'beds': 4, 'occupants': []},
+            'Barracks 3 (Boys)': {'beds': 4, 'occupants': []},
+            'Barracks 4 (Boys)': {'beds': 4, 'occupants': []},
+            'Barracks 5 (Girls)': {'beds': 6, 'occupants': []},
         }
 
 # Function to save room data to file
@@ -30,12 +30,20 @@ def save_room_data(data):
 # Load data at start
 rooms = load_room_data()
 
+def is_name_unique_in_room(room_name, name):
+    occupant_names = [occupant['name'].lower() for occupant in rooms[room_name]['occupants']]
+    return name.lower() not in occupant_names
+
 def update_occupancy(room_name, new_guest):
     current_time = time.time()
     if len(rooms[room_name]['occupants']) < rooms[room_name]['beds']:
-        rooms[room_name]['occupants'].append({'name': new_guest, 'time': current_time})
-        save_room_data(rooms)  # Save updated data
-        return True
+        if is_name_unique_in_room(room_name, new_guest):
+            rooms[room_name]['occupants'].append({'name': new_guest, 'time': current_time})
+            save_room_data(rooms)  # Save updated data
+            return True
+        else:
+            st.error("Guest with the same name already exists in this room.")
+            return False
     else:
         return False
 
@@ -59,9 +67,8 @@ remove_old_occupants()  # Check and remove old occupants
 
 # Display and update rooms
 for room_name, room_info in rooms.items():
-    st.subheader(f"{room_name} (Beds: {room_info['beds']})")
     occupancy = len(room_info['occupants'])
-    st.write(f"Occupancy: {occupancy}/{room_info['beds']}")
+    st.write(f"**{room_name}** - Occupancy: {occupancy}/{room_info['beds']}")
 
     new_guest = st.text_input(f"Enter guest name for {room_name}", key=f'input_{room_name}')
     if st.button('Insert', key=f'button_insert_{room_name}'):
