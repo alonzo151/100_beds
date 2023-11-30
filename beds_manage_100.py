@@ -105,7 +105,7 @@ if 'remove_state' not in st.session_state:
     st.session_state['remove_state'] = {}
 
 # Streamlit app starts here
-st.title("100 Beds Booking")
+st.title("Beds Booking 100")
 rooms = load_data()
 
 # Step 1: Select Gender
@@ -124,18 +124,18 @@ if gender:
         if selected_room:
             occupants = rooms[selected_room].get('occupants', [])
             occupant_names = [occupant['name'] for occupant in occupants]
-            st.write(f"Occupants in {selected_room}: {', '.join(occupant_names)}")
+            st.write(f"Sleepers in {selected_room}: {', '.join(occupant_names)}")
 
             with st.form("book_room"):
                 name = st.text_input("Enter your name:", "")
                 duration = st.select_slider("Duration (hours):", options=list(range(1, 11)), value=10)
-                submitted = st.form_submit_button("Book Room")
+                submitted = st.form_submit_button("Book a Bed")
                 if submitted:
                     if name and check_availability(selected_room, rooms):
                         if book_room(name, selected_room, duration, rooms):
                             jerusalem_now = to_jerusalem_time(datetime.now())
                             st.success(
-                                f"Booked {selected_room} for {name} from {jerusalem_now.strftime('%H:%M')} for {duration} hours.")
+                                f"Booked a bed in room {selected_room} for {name} staring at {jerusalem_now.strftime('%H:%M')} for {duration} hours.")
                         else:
                             st.error("Name already exists in the room.")
                     else:
@@ -146,7 +146,7 @@ if gender:
 
 # Step 4: View All Occupants with Remove Option
 remove_clicked = False
-if st.button("Show All Occupants"):
+if st.button("Show All Sleepers"):
     for room, details in rooms.items():
         st.write(f"{room}:")
         for occupant in details.get('occupants', []):
