@@ -1,97 +1,161 @@
 import streamlit as st
+from datetime import datetime, timedelta
 import json
-import os
-import time
-import datetime
 import pytz
 
-# File to store data
-data_file = 'rooms_data.json'
+ROOMS = {
+    "B1": {"gender": "Male", "capacity": 3, "occupants": []},
+    "B2": {"gender": "Male", "capacity": 3, "occupants": []},
+    "B3": {"gender": "Male", "capacity": 3, "occupants": []},
+    "B4": {"gender": "Male", "capacity": 3, "occupants": []},
+    "B5": {"gender": "Male", "capacity": 3, "occupants": []},
+    "B6": {"gender": "Male", "capacity": 3, "occupants": []},
+    "B7": {"gender": "Male", "capacity": 3, "occupants": []},
+    "B8": {"gender": "Male", "capacity": 3, "occupants": []},
+    "B9": {"gender": "Male", "capacity": 3, "occupants": []},
+    "B10": {"gender": "Male", "capacity": 3, "occupants": []},
+    "B11": {"gender": "Male", "capacity": 3, "occupants": []},
+    "B12": {"gender": "Male", "capacity": 12, "occupants": []},
+    "B13": {"gender": "Male", "capacity": 3, "occupants": []},
+    "B14": {"gender": "Male", "capacity": 3, "occupants": []},
+    "B15": {"gender": "Male", "capacity": 3, "occupants": []},
+    "B16": {"gender": "Male", "capacity": 3, "occupants": []},
+    "B17": {"gender": "Male", "capacity": 12, "occupants": []},
+    "B18": {"gender": "Male", "capacity": 3, "occupants": []},
+    "B19": {"gender": "Male", "capacity": 3, "occupants": []},
+    "B20": {"gender": "Male", "capacity": 3, "occupants": []},
+    "B21": {"gender": "Male", "capacity": 12, "occupants": []},
+    "B22": {"gender": "Male", "capacity": 3, "occupants": []},
+    "B23": {"gender": "Male", "capacity": 3, "occupants": []},
+    "B24": {"gender": "Male", "capacity": 3, "occupants": []},
+    "D12": {"gender": "Female", "capacity": 12, "occupants": []},
+    "D17": {"gender": "Female", "capacity": 12, "occupants": []}
+}
+# Function to load room data from a JSON file and remove expired occupants
+def load_data(remove=None):
+    try:
+        with open('rooms_data.json', 'r') as file:
+            data = json.load(file)
 
-# Function to load room data from file
-def load_room_data():
-    if os.path.exists(data_file):
-        with open(data_file, 'r') as file:
-            return json.load(file)
+        jerusalem_zone = pytz.timezone('Asia/Jerusalem')
+        current_time = datetime.now().astimezone(jerusalem_zone)
+
+        for room in data.values():
+            room['occupants'] = [
+                occupant for occupant in room['occupants']
+                if
+                datetime.fromisoformat(occupant['booking_time']) + timedelta(hours=occupant['duration']) > current_time
+                and occupant['name'] != remove]
+
+
+        save_data(data)  # Save updated data back to the file
+        return data
+    except (FileNotFoundError, json.JSONDecodeError):
+        return ROOMS
+
+
+# Function to save room data to a JSON file
+def save_data(data):
+    with open('rooms_data.json', 'w') as file:
+        json.dump(data, file, indent=4)
+
+
+# Function to check room availability
+def check_availability(room, data):
+    return len(data[room]['occupants']) < data[room]['capacity']
+
+
+# Function to convert local time to Jerusalem time
+def to_jerusalem_time(local_time):
+    jerusalem_zone = pytz.timezone('Asia/Jerusalem')
+    return local_time.astimezone(jerusalem_zone)
+
+
+# Function to book a room
+def book_room(name, room, duration, data):
+    jerusalem_now = to_jerusalem_time(datetime.now())
+    if all(name != occupant['name'] for occupant in data[room]['occupants']):
+        data[room]['occupants'].append({
+            "name": name,
+            "booking_time": jerusalem_now.isoformat(),
+            "duration": duration
+        })
+        save_data(data)
+        return True
+    return False
+
+
+# Function to format end time
+def format_end_time(booking_time, duration):
+    end_time = datetime.fromisoformat(booking_time) + timedelta(hours=duration)
+    end_time_jerusalem = to_jerusalem_time(end_time)
+    return end_time_jerusalem.strftime("Until %H:%M")
+
+
+# Function to remove an occupant from a room
+def remove_occupant(room, occupant_name, data):
+    data[room]['occupants'] = [
+        occupant for occupant in data[room]['occupants'] if occupant['name'] != occupant_name
+    ]
+    save_data(data)
+
+
+# Initialize session state for removal confirmation
+if 'remove_state' not in st.session_state:
+    st.session_state['remove_state'] = {}
+
+# Streamlit app starts here
+st.title("100 Beds Booking")
+rooms = load_data()
+
+# Step 1: Select Gender
+gender = st.radio("Select your gender:", ("Male", "Female"))
+
+# Step 2: Room Selection based on Gender
+if gender:
+    # Filter out full rooms
+    available_rooms = {room: details for room, details in rooms.items()
+                       if details['gender'].lower() == gender.lower() and check_availability(room, rooms)}
+
+    if available_rooms:
+        selected_room = st.selectbox("Choose a room:", list(available_rooms.keys()))
+
+        # Step 3: Show Occupants and Booking Interface
+        if selected_room:
+            occupants = rooms[selected_room].get('occupants', [])
+            occupant_names = [occupant['name'] for occupant in occupants]
+            st.write(f"Occupants in {selected_room}: {', '.join(occupant_names)}")
+
+            with st.form("book_room"):
+                name = st.text_input("Enter your name:", "")
+                duration = st.select_slider("Duration (hours):", options=list(range(1, 11)), value=10)
+                submitted = st.form_submit_button("Book Room")
+                if submitted:
+                    if name and check_availability(selected_room, rooms):
+                        if book_room(name, selected_room, duration, rooms):
+                            jerusalem_now = to_jerusalem_time(datetime.now())
+                            st.success(
+                                f"Booked {selected_room} for {name} from {jerusalem_now.strftime('%H:%M')} for {duration} hours.")
+                        else:
+                            st.error("Name already exists in the room.")
+                    else:
+                        st.error("Room is full")
+                        st.experimental_rerun()
     else:
-        return {
-            'Barracks 1 (Boys)': {'beds': 4, 'occupants': []},
-            'Barracks 2 (Boys)': {'beds': 4, 'occupants': []},
-            'Barracks 3 (Boys)': {'beds': 4, 'occupants': []},
-            'Barracks 4 (Boys)': {'beds': 4, 'occupants': []},
-            'Barracks 5 (Girls)': {'beds': 6, 'occupants': []},
-        }
+        st.write("No rooms available for your selection.")
 
-# Function to save room data to file
-def save_room_data(data):
-    with open(data_file, 'w') as file:
-        json.dump(data, file)
+# Step 4: View All Occupants with Remove Option
+remove_clicked = False
+if st.button("Show All Occupants"):
+    for room, details in rooms.items():
+        st.write(f"{room}:")
+        for occupant in details.get('occupants', []):
+            end_time_formatted = format_end_time(occupant['booking_time'], occupant['duration'])
+            st.write(f"{occupant['name']} - {end_time_formatted}")
+        if remove_clicked:
+            break
+name = st.text_input("Enter Sleeper's name:", "")
+if st.button("Remove Sleeper"):
+    if '100100' in name:
+        load_data(remove=name.replace('100100',""))
 
-# Load data at start
-rooms = load_room_data()
-
-def is_name_unique_in_room(room_name, name):
-    occupant_names = [occupant['name'].lower() for occupant in rooms[room_name]['occupants']]
-    return name.lower() not in occupant_names
-
-def update_occupancy(room_name, new_guest):
-    current_time = time.time()
-    if len(rooms[room_name]['occupants']) < rooms[room_name]['beds']:
-        if is_name_unique_in_room(room_name, new_guest):
-            rooms[room_name]['occupants'].append({'name': new_guest, 'time': current_time})
-            save_room_data(rooms)  # Save updated data
-            return True
-        else:
-            st.error("Guest with the same name already exists in this room.")
-            return False
-    else:
-        return False
-
-def remove_occupant(room_name, occupant_index):
-    rooms[room_name]['occupants'].pop(occupant_index)
-    save_room_data(rooms)
-
-def remove_old_occupants():
-    current_time = time.time()
-    for room_name, room_info in rooms.items():
-        room_info['occupants'] = [occupant for occupant in room_info['occupants'] if current_time - occupant['time'] < 120]
-    save_room_data(rooms)
-
-def format_time(timestamp):
-    jerusalem_tz = pytz.timezone('Asia/Jerusalem')
-    return datetime.datetime.fromtimestamp(timestamp, jerusalem_tz).strftime('%Y-%m-%d %H:%M:%S')
-
-st.title("Guest House Bed Management")
-
-remove_old_occupants()  # Check and remove old occupants
-
-# Display and update rooms
-for room_name, room_info in rooms.items():
-    occupancy = len(room_info['occupants'])
-    st.write(f"**{room_name}** - Occupancy: {occupancy}/{room_info['beds']}")
-
-    new_guest = st.text_input(f"Enter guest name for {room_name}", key=f'input_{room_name}')
-    if st.button('Insert', key=f'button_insert_{room_name}'):
-        success = update_occupancy(room_name, new_guest)
-        if success:
-            st.experimental_rerun()
-        else:
-            st.error("Room is full")
-
-    st.write("Current Occupants:")
-    for idx, occupant in enumerate(room_info['occupants']):
-        col1, col2 = st.columns([0.8, 0.2])
-        formatted_time = format_time(occupant['time'])
-        with col1:
-            st.write(f"{occupant['name']} - Inserted at: {formatted_time}")
-
-        with col2:
-            if st.button('Remove', key=f'button_remove_{idx}_{room_name}'):
-                password = st.text_input("Enter password to remove", type="password", key=f'password_{idx}_{room_name}')
-                if password and password == "camel100":
-                    remove_occupant(room_name, idx)
-                    st.experimental_rerun()
-                elif password:
-                    st.error("Incorrect password")
-
-    st.write("---")

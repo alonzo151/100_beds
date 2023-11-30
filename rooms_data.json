@@ -1,1 +1,138 @@
-{"Barracks 1 (Boys)": {"beds": 4, "occupants": [{"name": "2342", "time": 1701242678.864917}, {"name": "alon", "time": 1701242690.380707}, {"name": "444", "time": 1701242699.128629}, {"name": "345345", "time": 1701242701.01629}]}, "Barracks 2 (Boys)": {"beds": 4, "occupants": []}, "Barracks 3 (Boys)": {"beds": 4, "occupants": []}, "Barracks 4 (Boys)": {"beds": 4, "occupants": []}, "Barracks 5 (Girls)": {"beds": 6, "occupants": []}}
+{
+    "B1": {
+        "gender": "Male",
+        "capacity": 3,
+        "occupants": []
+    },
+    "B2": {
+        "gender": "Male",
+        "capacity": 3,
+        "occupants": []
+    },
+    "B3": {
+        "gender": "Male",
+        "capacity": 3,
+        "occupants": []
+    },
+    "B4": {
+        "gender": "Male",
+        "capacity": 3,
+        "occupants": []
+    },
+    "B5": {
+        "gender": "Male",
+        "capacity": 3,
+        "occupants": []
+    },
+    "B6": {
+        "gender": "Male",
+        "capacity": 3,
+        "occupants": []
+    },
+    "B7": {
+        "gender": "Male",
+        "capacity": 3,
+        "occupants": []
+    },
+    "B8": {
+        "gender": "Male",
+        "capacity": 3,
+        "occupants": []
+    },
+    "B9": {
+        "gender": "Male",
+        "capacity": 3,
+        "occupants": []
+    },
+    "B10": {
+        "gender": "Male",
+        "capacity": 3,
+        "occupants": []
+    },
+    "B11": {
+        "gender": "Male",
+        "capacity": 3,
+        "occupants": []
+    },
+    "B12": {
+        "gender": "Male",
+        "capacity": 12,
+        "occupants": []
+    },
+    "B13": {
+        "gender": "Male",
+        "capacity": 3,
+        "occupants": []
+    },
+    "B14": {
+        "gender": "Male",
+        "capacity": 3,
+        "occupants": []
+    },
+    "B15": {
+        "gender": "Male",
+        "capacity": 3,
+        "occupants": []
+    },
+    "B16": {
+        "gender": "Male",
+        "capacity": 3,
+        "occupants": []
+    },
+    "B17": {
+        "gender": "Male",
+        "capacity": 12,
+        "occupants": []
+    },
+    "B18": {
+        "gender": "Male",
+        "capacity": 3,
+        "occupants": []
+    },
+    "B19": {
+        "gender": "Male",
+        "capacity": 3,
+        "occupants": []
+    },
+    "B20": {
+        "gender": "Male",
+        "capacity": 3,
+        "occupants": []
+    },
+    "B21": {
+        "gender": "Male",
+        "capacity": 12,
+        "occupants": []
+    },
+    "B22": {
+        "gender": "Male",
+        "capacity": 3,
+        "occupants": []
+    },
+    "B23": {
+        "gender": "Male",
+        "capacity": 3,
+        "occupants": []
+    },
+    "B24": {
+        "gender": "Male",
+        "capacity": 3,
+        "occupants": []
+    },
+    "D12": {
+        "gender": "Female",
+        "capacity": 12,
+        "occupants": [
+            {
+                "name": "QEWDFWEFD",
+                "booking_time": "2023-11-30T16:07:23.241175+02:00",
+                "duration": 10
+            }
+        ]
+    },
+    "D17": {
+        "gender": "Female",
+        "capacity": 12,
+        "occupants": []
+    }
+}
