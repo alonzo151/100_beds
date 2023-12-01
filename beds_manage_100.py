@@ -4,14 +4,9 @@ import json
 import pytz
 
 ROOMS = {
-    "B1": {"gender": "Male", "capacity": 3, "occupants": []},
-    "B2": {"gender": "Male", "capacity": 3, "occupants": []},
-    "B3": {"gender": "Male", "capacity": 3, "occupants": []},
-    "B4": {"gender": "Male", "capacity": 3, "occupants": []},
     "B5": {"gender": "Male", "capacity": 3, "occupants": []},
     "B6": {"gender": "Male", "capacity": 3, "occupants": []},
     "B7": {"gender": "Male", "capacity": 3, "occupants": []},
-    "B8": {"gender": "Male", "capacity": 3, "occupants": []},
     "B9": {"gender": "Male", "capacity": 3, "occupants": []},
     "B10": {"gender": "Male", "capacity": 3, "occupants": []},
     "B11": {"gender": "Male", "capacity": 3, "occupants": []},
@@ -56,29 +51,24 @@ if user_password == password:
                     datetime.fromisoformat(occupant['booking_time']) + timedelta(hours=occupant['duration']) > current_time
                     and occupant['name'] != remove]
 
-
             save_data(data)  # Save updated data back to the file
             return data
         except (FileNotFoundError, json.JSONDecodeError):
             return ROOMS
-
 
     # Function to save room data to a JSON file
     def save_data(data):
         with open('rooms_data.json', 'w') as file:
             json.dump(data, file, indent=4)
 
-
     # Function to check room availability
     def check_availability(room, data):
         return len(data[room]['occupants']) < data[room]['capacity']
-
 
     # Function to convert local time to Jerusalem time
     def to_jerusalem_time(local_time):
         jerusalem_zone = pytz.timezone('Asia/Jerusalem')
         return local_time.astimezone(jerusalem_zone)
-
 
     # Function to book a room
     def book_room(name, selected_room, duration, data):
