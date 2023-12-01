@@ -19,10 +19,8 @@ ROOMS = {
     "B18": {"gender": "Male", "capacity": 3, "occupants": []},
     "B19": {"gender": "Male", "capacity": 3, "occupants": []},
     "B20": {"gender": "Male", "capacity": 3, "occupants": []},
-    "B21": {"gender": "Male", "capacity": 12, "occupants": []},
     "B22": {"gender": "Male", "capacity": 3, "occupants": []},
     "B23": {"gender": "Male", "capacity": 3, "occupants": []},
-    "B24": {"gender": "Male", "capacity": 3, "occupants": []},
     "D12": {"gender": "Female", "capacity": 12, "occupants": []},
     "D17": {"gender": "Female", "capacity": 12, "occupants": []}
 }
@@ -124,15 +122,13 @@ if user_password == password:
                            if details['gender'].lower() == gender.lower() and check_availability(room, rooms)}
 
         if available_rooms:
-            text = [r+" (" +str(len(available_rooms[r]['occupants'])) +" occupied out of " + str(available_rooms[r]['capacity'])+ ")"for r in available_rooms]
+            text = [r+" (" +str(available_rooms[r]['capacity'] - len(available_rooms[r]['occupants'])) +" free beds out of " + str(available_rooms[r]['capacity'])+ ")"for r in available_rooms]
             selected_room = st.selectbox("Choose a room:", text)
 
             # Step 3: Show Occupants and Booking Interface
             if selected_room:
                 selected_room = selected_room.split()[0]
                 occupants = rooms[selected_room].get('occupants', [])
-                occupant_names = [occupant['name'] for occupant in occupants]
-                st.write(f"Sleepers in {selected_room}: {', '.join(occupant_names)}")
 
                 with st.form("book_room"):
                     name = st.text_input("Enter your name:", "")
@@ -149,6 +145,9 @@ if user_password == password:
                         else:
                             st.error("Room is full")
                             st.experimental_rerun()
+                occupant_names = [occupant['name'] for occupant in occupants]
+                text = f"Sleepers in {selected_room}: {', '.join(occupant_names)}" if occupant_names else f"Room {selected_room} is currently empy"
+                st.write(text)
         else:
             st.write("No rooms available for your selection.")
 
