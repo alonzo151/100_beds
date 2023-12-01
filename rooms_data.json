@@ -2,7 +2,18 @@
     "B1": {
         "gender": "Male",
         "capacity": 3,
-        "occupants": []
+        "occupants": [
+            {
+                "name": "ssdfs",
+                "booking_time": "2023-12-01T10:05:34.978365+02:00",
+                "duration": 10
+            },
+            {
+                "name": "aaaa",
+                "booking_time": "2023-12-01T10:11:08.910813+02:00",
+                "duration": 10
+            }
+        ]
     },
     "B2": {
         "gender": "Male",
@@ -17,12 +28,24 @@
     "B4": {
         "gender": "Male",
         "capacity": 3,
-        "occupants": []
+        "occupants": [
+            {
+                "name": "tkui",
+                "booking_time": "2023-12-01T09:57:34.840208+02:00",
+                "duration": 10
+            }
+        ]
     },
     "B5": {
         "gender": "Male",
         "capacity": 3,
-        "occupants": []
+        "occupants": [
+            {
+                "name": "tkui",
+                "booking_time": "2023-12-01T09:57:39.732282+02:00",
+                "duration": 10
+            }
+        ]
     },
     "B6": {
         "gender": "Male",
@@ -122,13 +145,7 @@
     "D12": {
         "gender": "Female",
         "capacity": 12,
-        "occupants": [
-            {
-                "name": "QEWDFWEFD",
-                "booking_time": "2023-11-30T16:07:23.241175+02:00",
-                "duration": 10
-            }
-        ]
+        "occupants": []
     },
     "D17": {
         "gender": "Female",

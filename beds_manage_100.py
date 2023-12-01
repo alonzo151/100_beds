@@ -72,17 +72,24 @@ def to_jerusalem_time(local_time):
 
 
 # Function to book a room
-def book_room(name, room, duration, data):
+def book_room(name, selected_room, duration, data):
     jerusalem_now = to_jerusalem_time(datetime.now())
-    if all(name != occupant['name'] for occupant in data[room]['occupants']):
-        data[room]['occupants'].append({
+    for room in data.keys():
+        if any(name == occupant['name'] for occupant in data[room]['occupants']):
+            return False  # Name already exists in one of the rooms
+
+    # If name doesn't exist in any room, add it to the first available room
+
+    if check_availability(selected_room, data):
+        data[selected_room]['occupants'].append({
             "name": name,
             "booking_time": jerusalem_now.isoformat(),
             "duration": duration
         })
         save_data(data)
-        return True
-    return False
+        return True  # Successfully booked a bed in the first available room
+
+    return False  # All rooms are full
 
 
 # Function to format end time
@@ -118,10 +125,12 @@ if gender:
                        if details['gender'].lower() == gender.lower() and check_availability(room, rooms)}
 
     if available_rooms:
-        selected_room = st.selectbox("Choose a room:", list(available_rooms.keys()))
+        text = [r+" (" +str(len(available_rooms[r]['occupants'])) +" occupied out of " + str(available_rooms[r]['capacity'])+ ")"for r in available_rooms]
+        selected_room = st.selectbox("Choose a room:", text)
 
         # Step 3: Show Occupants and Booking Interface
         if selected_room:
+            selected_room = selected_room.split()[0]
             occupants = rooms[selected_room].get('occupants', [])
             occupant_names = [occupant['name'] for occupant in occupants]
             st.write(f"Sleepers in {selected_room}: {', '.join(occupant_names)}")
@@ -137,7 +146,7 @@ if gender:
                             st.success(
                                 f"Booked a bed in room {selected_room} for {name} staring at {jerusalem_now.strftime('%H:%M')} for {duration} hours.")
                         else:
-                            st.error("Name already exists in the room.")
+                            st.error("Name already exists")
                     else:
                         st.error("Room is full")
                         st.experimental_rerun()
@@ -146,7 +155,11 @@ if gender:
 
 # Step 4: View All Occupants with Remove Option
 remove_clicked = False
+hide_all = False
 if st.button("Show All Sleepers"):
+    if st.button("Hide All Sleepers"):
+        hide_all = True
+        pass
     for room, details in rooms.items():
         st.write(f"{room}:")
         for occupant in details.get('occupants', []):
@@ -154,8 +167,17 @@ if st.button("Show All Sleepers"):
             st.write(f"{occupant['name']} - {end_time_formatted}")
         if remove_clicked:
             break
+        if hide_all:
+            break
+    if st.button("Hide All Sleepers."):
+        hide_all = True
+        pass
 name = st.text_input("Enter Sleeper's name:", "")
 if st.button("Remove Sleeper"):
     if '100100' in name:
         load_data(remove=name.replace('100100',""))
+
+
+
+
 
