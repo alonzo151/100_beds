@@ -1,0 +1,114 @@
+{
+    "B5": {
+        "gender": "Male",
+        "capacity": 3,
+        "occupants": [
+            {
+                "name": "\u05e8\u05d6",
+                "booking_time": "2023-12-06T17:00:40.990421+02:00",
+                "duration": 10
+            }
+        ]
+    },
+    "B6": {
+        "gender": "Male",
+        "capacity": 3,
+        "occupants": []
+    },
+    "B7": {
+        "gender": "Male",
+        "capacity": 3,
+        "occupants": []
+    },
+    "B9": {
+        "gender": "Male",
+        "capacity": 3,
+        "occupants": []
+    },
+    "B10": {
+        "gender": "Male",
+        "capacity": 3,
+        "occupants": []
+    },
+    "B11": {
+        "gender": "Male",
+        "capacity": 3,
+        "occupants": []
+    },
+    "B12": {
+        "gender": "Male",
+        "capacity": 12,
+        "occupants": []
+    },
+    "B13": {
+        "gender": "Male",
+        "capacity": 3,
+        "occupants": []
+    },
+    "B14": {
+        "gender": "Male",
+        "capacity": 3,
+        "occupants": []
+    },
+    "B15": {
+        "gender": "Male",
+        "capacity": 3,
+        "occupants": [
+            {
+                "name": "\u05d2\u05d5\u05d0\u05d9",
+                "booking_time": "2023-12-06T17:00:51.596000+02:00",
+                "duration": 10
+            },
+            {
+                "name": "\u05e8\u05d6 \u05d0",
+                "booking_time": "2023-12-06T17:00:00.136533+02:00",
+                "duration": 10
+            }
+        ]
+    },
+    "B16": {
+        "gender": "Male",
+        "capacity": 3,
+        "occupants": []
+    },
+    "B17": {
+        "gender": "Male",
+        "capacity": 12,
+        "occupants": []
+    },
+    "B18": {
+        "gender": "Male",
+        "capacity": 3,
+        "occupants": []
+    },
+    "B19": {
+        "gender": "Male",
+        "capacity": 3,
+        "occupants": []
+    },
+    "B20": {
+        "gender": "Male",
+        "capacity": 3,
+        "occupants": []
+    },
+    "B22": {
+        "gender": "Male",
+        "capacity": 3,
+        "occupants": []
+    },
+    "B23": {
+        "gender": "Male",
+        "capacity": 3,
+        "occupants": []
+    },
+    "D12": {
+        "gender": "Female",
+        "capacity": 12,
+        "occupants": []
+    },
+    "D17": {
+        "gender": "Female",
+        "capacity": 12,
+        "occupants": []
+    }
+}

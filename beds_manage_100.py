@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 import json
 import pytz
 
-ROOMS = {
+BEDS_BARCKS = {
     "B5": {"gender": "Male", "capacity": 3, "occupants": []},
     "B6": {"gender": "Male", "capacity": 3, "occupants": []},
     "B7": {"gender": "Male", "capacity": 3, "occupants": []},
@@ -21,22 +21,39 @@ ROOMS = {
     "B20": {"gender": "Male", "capacity": 3, "occupants": []},
     "B22": {"gender": "Male", "capacity": 3, "occupants": []},
     "B23": {"gender": "Male", "capacity": 3, "occupants": []},
-    "D12": {"gender": "Female", "capacity": 12, "occupants": []},
-    "D17": {"gender": "Female", "capacity": 12, "occupants": []}
+    "D9": {"gender": "Female", "capacity": 3, "occupants": []},
+    "D10": {"gender": "Female", "capacity": 3, "occupants": []}
+}
+BOQ_ROOM = {
+    "BOQ1": {"gender": "Male", "capacity": 4, "occupants": []},
+    "BOQ2": {"gender": "Male", "capacity": 4, "occupants": []},
+    "BOQ3": {"gender": "Male", "capacity": 4, "occupants": []},
+    "BOQ4": {"gender": "Male", "capacity": 4, "occupants": []}
 }
 
-password = "100100"
+
+beds_pass = "100100"
+boq_pass = "100boq"
 
 # Create an input field for the password
 user_password = st.text_input("Enter the password:", type="password")
 
 # Check if the entered password matches the correct password
-if user_password == password:
+if user_password in [beds_pass, boq_pass]:
+
+    if user_password == "100100":
+        json_file = 'rooms_data.json'
+        sleep_resource = BEDS_BARCKS
+
+    if user_password == "100boq":
+        json_file = 'boq_data.json'
+        sleep_resource = BOQ_ROOM
+
     st.success("Password accepted. You can access the app.")
     # Function to load room data from a JSON file and remove expired occupants
     def load_data(remove=None):
         try:
-            with open('rooms_data.json', 'r') as file:
+            with open(json_file, 'r') as file:
                 data = json.load(file)
 
             jerusalem_zone = pytz.timezone('Asia/Jerusalem')
@@ -52,11 +69,11 @@ if user_password == password:
             save_data(data)  # Save updated data back to the file
             return data
         except (FileNotFoundError, json.JSONDecodeError):
-            return ROOMS
+            return sleep_resource
 
     # Function to save room data to a JSON file
     def save_data(data):
-        with open('rooms_data.json', 'w') as file:
+        with open(json_file, 'w') as file:
             json.dump(data, file, indent=4)
 
     # Function to check room availability
@@ -88,13 +105,11 @@ if user_password == password:
 
         return False  # All rooms are full
 
-
     # Function to format end time
     def format_end_time(booking_time, duration):
         end_time = datetime.fromisoformat(booking_time) + timedelta(hours=duration)
         end_time_jerusalem = to_jerusalem_time(end_time)
         return end_time_jerusalem.strftime("Until %H:%M")
-
 
     # Function to remove an occupant from a room
     def remove_occupant(room, occupant_name, data):
@@ -102,7 +117,6 @@ if user_password == password:
             occupant for occupant in data[room]['occupants'] if occupant['name'] != occupant_name
         ]
         save_data(data)
-
 
     # Initialize session state for removal confirmation
     if 'remove_state' not in st.session_state:
@@ -172,8 +186,7 @@ if user_password == password:
             pass
     name = st.text_input("Enter Sleeper's name:", "")
     if st.button("Remove Sleeper"):
-        if '100100' in name:
-            load_data(remove=name.replace('100100',""))
+        load_data(remove=name)
 
 else:
     st.error("Incorrect password. Access denied.")
