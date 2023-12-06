@@ -101,14 +101,14 @@
         "capacity": 3,
         "occupants": []
     },
-    "D12": {
+    "D9": {
         "gender": "Female",
-        "capacity": 12,
+        "capacity": 3,
         "occupants": []
     },
-    "D17": {
+    "D10": {
         "gender": "Female",
-        "capacity": 12,
+        "capacity": 3,
         "occupants": []
     }
 }
