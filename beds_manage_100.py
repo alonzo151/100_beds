@@ -25,13 +25,12 @@ BEDS_BARCKS = {
     "D10": {"gender": "Female", "capacity": 3, "occupants": []}
 }
 BOQ_ROOM = {
-    "BOQ13": {"gender": "Male", "capacity": 3, "occupants": []},
+    "BOQ13": {"gender": "Male", "capacity": 2, "occupants": []},
     "BOQ27": {"gender": "Male", "capacity": 2, "occupants": []},
     "M2": {"gender": "Male", "capacity": 4, "occupants": []},
-    "M5": {"gender": "Male", "capacity": 4, "occupants": []},
-    "M6": {"gender": "Male", "capacity": 4, "occupants": []},
-    "M12": {"gender": "Male", "capacity": 4, "occupants": []},
-    "M13": {"gender": "Male", "capacity": 2, "occupants": []}
+    "M5": {"gender": "Male", "capacity": 5, "occupants": []},
+    "M6": {"gender": "Male", "capacity": 5, "occupants": []},
+    "M13": {"gender": "Male", "capacity": 3, "occupants": []}
 }
 
 beds_pass = "100100"
