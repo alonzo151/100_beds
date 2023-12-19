@@ -25,12 +25,14 @@ BEDS_BARCKS = {
     "D10": {"gender": "Female", "capacity": 3, "occupants": []}
 }
 BOQ_ROOM = {
-    "BOQ1": {"gender": "Male", "capacity": 4, "occupants": []},
-    "BOQ2": {"gender": "Male", "capacity": 4, "occupants": []},
-    "BOQ3": {"gender": "Male", "capacity": 4, "occupants": []},
-    "BOQ4": {"gender": "Male", "capacity": 4, "occupants": []}
+    "BOQ13": {"gender": "Male", "capacity": 3, "occupants": []},
+    "BOQ27": {"gender": "Male", "capacity": 2, "occupants": []},
+    "M2": {"gender": "Male", "capacity": 4, "occupants": []},
+    "M5": {"gender": "Male", "capacity": 4, "occupants": []},
+    "M6": {"gender": "Male", "capacity": 4, "occupants": []},
+    "M12": {"gender": "Male", "capacity": 4, "occupants": []},
+    "M13": {"gender": "Male", "capacity": 2, "occupants": []}
 }
-
 
 beds_pass = "100100"
 boq_pass = "100boq"
@@ -50,6 +52,8 @@ if user_password in [beds_pass, boq_pass]:
         sleep_resource = BOQ_ROOM
 
     st.success("Password accepted. You can access the app.")
+
+
     # Function to load room data from a JSON file and remove expired occupants
     def load_data(remove=None):
         try:
@@ -63,7 +67,8 @@ if user_password in [beds_pass, boq_pass]:
                 room['occupants'] = [
                     occupant for occupant in room['occupants']
                     if
-                    datetime.fromisoformat(occupant['booking_time']) + timedelta(hours=occupant['duration']) > current_time
+                    datetime.fromisoformat(occupant['booking_time']) + timedelta(
+                        hours=occupant['duration']) > current_time
                     and occupant['name'] != remove]
 
             save_data(data)  # Save updated data back to the file
@@ -71,19 +76,23 @@ if user_password in [beds_pass, boq_pass]:
         except (FileNotFoundError, json.JSONDecodeError):
             return sleep_resource
 
+
     # Function to save room data to a JSON file
     def save_data(data):
         with open(json_file, 'w') as file:
             json.dump(data, file, indent=4)
 
+
     # Function to check room availability
     def check_availability(room, data):
         return len(data[room]['occupants']) < data[room]['capacity']
+
 
     # Function to convert local time to Jerusalem time
     def to_jerusalem_time(local_time):
         jerusalem_zone = pytz.timezone('Asia/Jerusalem')
         return local_time.astimezone(jerusalem_zone)
+
 
     # Function to book a room
     def book_room(name, selected_room, duration, data):
@@ -105,11 +114,13 @@ if user_password in [beds_pass, boq_pass]:
 
         return False  # All rooms are full
 
+
     # Function to format end time
     def format_end_time(booking_time, duration):
         end_time = datetime.fromisoformat(booking_time) + timedelta(hours=duration)
         end_time_jerusalem = to_jerusalem_time(end_time)
         return end_time_jerusalem.strftime("Until %H:%M")
+
 
     # Function to remove an occupant from a room
     def remove_occupant(room, occupant_name, data):
@@ -117,6 +128,7 @@ if user_password in [beds_pass, boq_pass]:
             occupant for occupant in data[room]['occupants'] if occupant['name'] != occupant_name
         ]
         save_data(data)
+
 
     # Initialize session state for removal confirmation
     if 'remove_state' not in st.session_state:
@@ -136,7 +148,9 @@ if user_password in [beds_pass, boq_pass]:
                            if details['gender'].lower() == gender.lower() and check_availability(room, rooms)}
 
         if available_rooms:
-            text = [r+" (" +str(available_rooms[r]['capacity'] - len(available_rooms[r]['occupants'])) +" free beds out of " + str(available_rooms[r]['capacity'])+ ")"for r in available_rooms]
+            text = [r + " (" + str(
+                available_rooms[r]['capacity'] - len(available_rooms[r]['occupants'])) + " free beds out of " + str(
+                available_rooms[r]['capacity']) + ")" for r in available_rooms]
             selected_room = st.selectbox("Choose a room:", text)
 
             # Step 3: Show Occupants and Booking Interface
@@ -190,6 +204,3 @@ if user_password in [beds_pass, boq_pass]:
 
 else:
     st.error("Incorrect password. Access denied.")
-
-
-
