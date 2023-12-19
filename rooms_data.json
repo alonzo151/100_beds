@@ -2,13 +2,7 @@
     "B5": {
         "gender": "Male",
         "capacity": 3,
-        "occupants": [
-            {
-                "name": "\u05e8\u05d6",
-                "booking_time": "2023-12-06T17:00:40.990421+02:00",
-                "duration": 10
-            }
-        ]
+        "occupants": []
     },
     "B6": {
         "gender": "Male",
@@ -53,18 +47,7 @@
     "B15": {
         "gender": "Male",
         "capacity": 3,
-        "occupants": [
-            {
-                "name": "\u05d2\u05d5\u05d0\u05d9",
-                "booking_time": "2023-12-06T17:00:51.596000+02:00",
-                "duration": 10
-            },
-            {
-                "name": "\u05e8\u05d6 \u05d0",
-                "booking_time": "2023-12-06T17:00:00.136533+02:00",
-                "duration": 10
-            }
-        ]
+        "occupants": []
     },
     "B16": {
         "gender": "Male",
