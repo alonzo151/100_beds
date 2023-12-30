@@ -30,7 +30,11 @@ BOQ_ROOM = {
     "M2": {"gender": "Male", "capacity": 4, "occupants": []},
     "M5": {"gender": "Male", "capacity": 5, "occupants": []},
     "M6": {"gender": "Male", "capacity": 5, "occupants": []},
-    "M13": {"gender": "Male", "capacity": 3, "occupants": []}
+    "M13": {"gender": "Male", "capacity": 3, "occupants": []},
+    "K2": {"gender": "Male", "capacity": 4, "occupants": []},
+    "K3": {"gender": "Male", "capacity": 4, "occupants": []},
+    "K4": {"gender": "Male", "capacity": 4, "occupants": []},
+    "K5": {"gender": "Male", "capacity": 4, "occupants": []}
 }
 
 beds_pass = "100100"
