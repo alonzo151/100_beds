@@ -2,16 +2,27 @@
     "BOQ13": {
         "gender": "Male",
         "capacity": 2,
-        "occupants": []
+        "occupants": [
+            {
+                "name": "\u05e0\u05de\u05e8\u05d5\u05d3",
+                "booking_time": "2024-01-08T12:50:26.688492+02:00",
+                "duration": 10
+            },
+            {
+                "name": "\u05d0\u05d1\u05d9\u05d1 \u05d2",
+                "booking_time": "2024-01-08T17:47:30.856504+02:00",
+                "duration": 8
+            }
+        ]
     },
     "BOQ27": {
         "gender": "Male",
         "capacity": 2,
         "occupants": [
             {
-                "name": "\u05d2\u05dc\u05d1\u05d5\u05e2",
-                "booking_time": "2023-12-30T20:30:14.149101+02:00",
-                "duration": 4
+                "name": "Omer Wsserman",
+                "booking_time": "2024-01-08T09:27:46.908785+02:00",
+                "duration": 10
             }
         ]
     },
@@ -23,7 +34,13 @@
     "M5": {
         "gender": "Male",
         "capacity": 5,
-        "occupants": []
+        "occupants": [
+            {
+                "name": "\u05d2\u05d9\u05d0\u05e1\u05d0",
+                "booking_time": "2024-01-08T10:57:59.117415+02:00",
+                "duration": 10
+            }
+        ]
     },
     "M6": {
         "gender": "Male",
@@ -36,9 +53,15 @@
         "occupants": []
     },
     "K2": {
-        "gender": "Male",
+        "gender": "Female",
         "capacity": 4,
-        "occupants": []
+        "occupants": [
+            {
+                "name": "\u05d1\u05d3\u05d9\u05e7\u05d4",
+                "booking_time": "2024-01-08T18:12:22.327372+02:00",
+                "duration": 10
+            }
+        ]
     },
     "K3": {
         "gender": "Male",
