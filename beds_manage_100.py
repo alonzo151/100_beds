@@ -4,37 +4,22 @@ import json
 import pytz
 
 BEDS_BARCKS = {
-    "B5": {"gender": "Male", "capacity": 3, "occupants": []},
-    "B6": {"gender": "Male", "capacity": 3, "occupants": []},
-    "B7": {"gender": "Male", "capacity": 3, "occupants": []},
-    "B9": {"gender": "Male", "capacity": 3, "occupants": []},
-    "B10": {"gender": "Male", "capacity": 3, "occupants": []},
-    "B11": {"gender": "Male", "capacity": 3, "occupants": []},
-    "B12": {"gender": "Male", "capacity": 12, "occupants": []},
-    "B13": {"gender": "Male", "capacity": 3, "occupants": []},
-    "B14": {"gender": "Male", "capacity": 3, "occupants": []},
-    "B15": {"gender": "Male", "capacity": 3, "occupants": []},
-    "B16": {"gender": "Male", "capacity": 3, "occupants": []},
-    "B17": {"gender": "Male", "capacity": 12, "occupants": []},
-    "B18": {"gender": "Male", "capacity": 3, "occupants": []},
-    "B19": {"gender": "Male", "capacity": 3, "occupants": []},
-    "B20": {"gender": "Male", "capacity": 3, "occupants": []},
-    "B22": {"gender": "Male", "capacity": 3, "occupants": []},
-    "B23": {"gender": "Male", "capacity": 3, "occupants": []},
-    "D9": {"gender": "Female", "capacity": 3, "occupants": []},
-    "D10": {"gender": "Female", "capacity": 3, "occupants": []}
+    "Nofit4": {"gender": "Male", "capacity": 4, "occupants": []},
+    "Nofit6": {"gender": "Male", "capacity": 4, "occupants": []},
+    "Carmel8": {"gender": "Male", "capacity": 5, "occupants": []},
+    "Carmel9": {"gender": "Male", "capacity": 5, "occupants": []},
+    "Carmel10": {"gender": "Male", "capacity": 5, "occupants": []},
+    "Carmel11": {"gender": "Male", "capacity": 5, "occupants": []},
+    "Carmel12": {"gender": "Male", "capacity": 5, "occupants": []},
+    "Carmel13": {"gender": "Male", "capacity": 5, "occupants": []},
+    "Carmel14": {"gender": "Male", "capacity": 5, "occupants": []},
+    "Carmel15": {"gender": "Male", "capacity": 5, "occupants": []}
 }
 BOQ_ROOM = {
-    "BOQ13": {"gender": "Male", "capacity": 2, "occupants": []},
-    "BOQ27": {"gender": "Male", "capacity": 2, "occupants": []},
-    "M2": {"gender": "Male", "capacity": 4, "occupants": []},
-    "M5": {"gender": "Male", "capacity": 5, "occupants": []},
-    "M6": {"gender": "Male", "capacity": 5, "occupants": []},
-    "M13": {"gender": "Male", "capacity": 3, "occupants": []},
-    "K2": {"gender": "Female", "capacity": 4, "occupants": []},
-    "K3": {"gender": "Male", "capacity": 4, "occupants": []},
-    "K4": {"gender": "Male", "capacity": 4, "occupants": []},
-    "K5": {"gender": "Male", "capacity": 4, "occupants": []}
+    "BOQ3": {"gender": "Male", "capacity": 4, "occupants": []},
+    "BOQ6": {"gender": "Male", "capacity": 4, "occupants": []},
+    "BOQ11": {"gender": "Male", "capacity": 4, "occupants": []},
+    "BOQ12": {"gender": "Female", "capacity": 4, "occupants": []}
 }
 
 beds_pass = "100100"
