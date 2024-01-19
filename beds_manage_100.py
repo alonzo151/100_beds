@@ -13,13 +13,14 @@ BEDS_BARCKS = {
     "Carmel12": {"gender": "Male", "capacity": 5, "occupants": []},
     "Carmel13": {"gender": "Male", "capacity": 5, "occupants": []},
     "Carmel14": {"gender": "Male", "capacity": 5, "occupants": []},
-    "Carmel15": {"gender": "Male", "capacity": 5, "occupants": []}
-}
-BOQ_ROOM = {
+    "Carmel15": {"gender": "Male", "capacity": 5, "occupants": []},
     "BOQ3": {"gender": "Male", "capacity": 4, "occupants": []},
-    "BOQ6": {"gender": "Male", "capacity": 4, "occupants": []},
+    "BOQ6": {"gender": "Male", "capacity": 3, "occupants": []},
     "BOQ11": {"gender": "Male", "capacity": 4, "occupants": []},
     "BOQ12": {"gender": "Female", "capacity": 4, "occupants": []}
+}
+BOQ_ROOM = {
+
 }
 
 beds_pass = "100100"
