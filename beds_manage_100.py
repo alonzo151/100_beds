@@ -36,6 +36,7 @@ if user_password in [beds_pass, boq_pass]:
         json_file = 'rooms_data.json'
         sleep_resource = BEDS_BARCKS
 
+
     if user_password == "100boq":
         json_file = 'boq_data.json'
         sleep_resource = BOQ_ROOM
